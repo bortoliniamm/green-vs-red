@@ -1,8 +1,23 @@
 import React from 'react'
 import Cell from './Cell.js'
 
-export default function Grid( { gridArr } ) {
+export default function Grid( { gridArr, columns } ) {
     let color='green';
+
+    let gridWidth = 70*columns;
+
+    const styles = {
+        grid: {
+            display: 'flex',
+            flexDirection: 'row',
+            align: 'center',
+            alignItems: 'center',
+            flexWrap: 'wrap',
+            justifyContent: 'flex-start',
+            width: gridWidth, // Each cell has a 70px including its margins. The number of columns must be calculated based on that.
+          }
+      };
+
     return (
         <div>
             <div className='container' style={styles.grid}>
@@ -15,21 +30,3 @@ export default function Grid( { gridArr } ) {
     )
 }
 
-const styles = {
-    grid: {
-        display: 'flex',
-        flexDirection: 'row',
-        align: 'center',
-        alignItems: 'center',
-        flexWrap: 'wrap',
-        justifyContent: 'flex-start',
-        width: '210px', 
-        // as celulas possuem 70px incluindo as margens 
-        // de distanciamento. O número de linhas e colunas 
-        // deve ser calculado com base nisso.
-        // Para 4 colunas, width=280 etc
-        // para x colunas, width=70*x
-        // colocar array styles antes do return para 
-        // que este possa receber width como variavel
-      }
-  };
