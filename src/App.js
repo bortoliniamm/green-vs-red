@@ -1,27 +1,24 @@
 import React, { useState, useEffect } from 'react';
 import Grid from './components/Grid';
-import RowInput from './components/RowInput';
-import ColumnInput from './components/ColumnInput';
+import StartButton from './components/StartButton';
+import ChooseCell from './components/ChooseCell';
+import SetGrid from './components/SetGrid';
+
+import { loadInitialArray, reloadArray, chooseCell } from './GameRules'
 
 function App() {
 
   let auxArr=[];
   let initialArr=[];
-  let flag=0;
 
-  for(let i=0; i<9; i++){
-    if(flag===0){
-      initialArr.push(flag);
-      flag=1;
-    }else{
-      initialArr.push(flag);
-      flag=0;
-    }
-  }
+  loadInitialArray(initialArr);
 
   const [noRows, setNoRows] = useState(3);
   const [noColumns, setNoColumns] = useState(3);
   const [gridArr, setGridArr] = useState(initialArr);
+  const [xPosition, setXPosition] = useState(1);
+  const [yPosition, setYPosition] = useState(1);
+  const [position, setPosition] = useState(0);
   
   const handleRowChange = (value) => {
     setNoRows(value);
@@ -30,22 +27,37 @@ function App() {
   const handleColumnChange = (value) => {
     setNoColumns(value);
   }; 
+
+  const changeX = (value) => {
+    setXPosition(value);
+  }; 
+
+  const changeY = (value) => {
+    setYPosition(value);
+  }; 
+
+  const handleButtonClick = (event) => {
+    console.log(event);
+}
   
   useEffect(() => {
-    
-    flag = 0;
-    
-    for(let i=0; i<(noRows*noColumns); i++){
-      if(flag===0){
-        auxArr.push(flag);
-        flag=1;
-      }else{
-        auxArr.push(flag);
-        flag=0;
-      }
-    }
+
+    reloadArray(auxArr, noRows, noColumns);
     setGridArr(auxArr);
+
+    let pos=chooseCell(yPosition, xPosition, noColumns);
+
+    setPosition(pos);
+
   }, [noRows, noColumns]);
+
+  useEffect(() => {
+
+    let pos=chooseCell(yPosition, xPosition, noColumns);
+
+    setPosition(pos);
+
+  }, [xPosition, yPosition]);
 
   if (gridArr.length!==0){
     return (
@@ -54,11 +66,16 @@ function App() {
         <h1 style={styles.center}>Green vs. Red</h1>
   
         <div>
-            <div style={styles.center}>
-              <RowInput  handleChange={handleRowChange} />
-              <ColumnInput  handleChange={handleColumnChange} />
+            <div>
+              <SetGrid rowChange={handleRowChange} columnChange={handleColumnChange}/>
             </div>
-            <Grid gridArr={gridArr} columns={noColumns}/>
+            <div>
+              <ChooseCell  Xpos={changeX} Ypos={changeY} noRows={noRows} noColumns={noColumns}/>
+            </div>
+            <div style={styles.center}>
+              <StartButton handleClick={handleButtonClick}/>
+            </div>
+            <Grid gridArr={gridArr} columns={noColumns} myCell={position}/>
         </div>
   
       </div>
@@ -73,6 +90,7 @@ const styles = {
       display: 'flex',
       flexDirection: 'row',
       justifyContent: 'center',
+      marginBottom: '30px',
     }
 };
 

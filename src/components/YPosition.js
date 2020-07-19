@@ -1,7 +1,7 @@
 import React from 'react'
 
-export default function ColumnInput({ handleChange }) {
-    const handleInputChange = (event) => {
+export default function Yposition( {handleChange, yMax} ) {
+    const handleYChange = (event) => {
         handleChange(Number(event.target.value));
     }
     
@@ -12,14 +12,14 @@ export default function ColumnInput({ handleChange }) {
                     <input style={styles.inputStyle}
                         id='input'
                         type='number'
-                        placeholder='Set a value'
+                        min={1}
+                        max={yMax}
+                        placeholder='Set Y position'
                         autoFocus
-                        min={3}
-                        max={10}
-                        onChange={handleInputChange}
+                        onChange={handleYChange}
                     />
                     <label  className='active' htmlFor='inputSalary'>
-                        Columns
+                        Cell row number
                     </label>
                 </div>
             </div>

@@ -2,7 +2,7 @@ import React from 'react'
 
 export default function RowInput({ handleChange}) {
     const handleInputChange = (event) => {
-        handleChange(event.target.value);
+        handleChange(Number(event.target.value));
     }
     
     return (
@@ -12,7 +12,7 @@ export default function RowInput({ handleChange}) {
                     <input style={styles.inputStyle}
                         id='input'
                         type='number'
-                        placeholder='Escolha um valor'
+                        placeholder='Set a value'
                         autoFocus
                         min={3}
                         max={10}

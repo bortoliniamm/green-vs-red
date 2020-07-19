@@ -1,6 +1,6 @@
 import React from 'react'
 
-export default function Cell( { color } ) {
+export default function Cell( { color, borderColor } ) {
     const styles = {
         cell: {
             width: '50px',
@@ -11,10 +11,14 @@ export default function Cell( { color } ) {
             marginLeft: "10px",
             marginRight: "10px",
             borderRadius: "25%"
+        },
+
+        choosen: {
+            border: `5px solid ${borderColor}`
         }
     }
     return (
-        <div style={styles.cell}></div>
+        <div style={{...styles.cell, ...styles.choosen}}></div>
     );
 }
 

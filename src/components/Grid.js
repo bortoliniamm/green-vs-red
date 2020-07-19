@@ -1,8 +1,9 @@
 import React from 'react'
 import Cell from './Cell.js'
 
-export default function Grid( { gridArr, columns } ) {
+export default function Grid( { gridArr, columns, myCell } ) {
     let color='green';
+    let borderColor=color;
 
     let gridWidth = 70*columns;
 
@@ -30,9 +31,10 @@ export default function Grid( { gridArr, columns } ) {
         <div>
             <div className='container' style={styles.grid}>
                 {gridArr.map(element => {
-                    if(element===1){color='red'}else{color='green'};
+                    if(element===0){color='red'}else{color='green'};
+                    if(myCell===j){borderColor='orange'}else{borderColor=color};
                     j++;
-                    return <Cell key={j} color={color}/>;
+                    return <Cell key={j} color={color} borderColor={borderColor}/>;
                 })}
             </div>
         </div>
