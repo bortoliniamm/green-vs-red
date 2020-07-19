@@ -1,9 +1,11 @@
 import React from 'react'
+import { generateGrid } from '../GameRules.js'
+
 
 
 export default function StartButton({handleClick}) {
-    const handleButtonClick = (event) => {
-        handleClick(event);
+    const handleButtonClick = () => {
+        
     }
     return (
         <div>
