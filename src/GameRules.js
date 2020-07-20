@@ -8,6 +8,7 @@ function loadInitialArray(initialArr, noRows, noCols){
               "value": flag,
               "position": 'middle',
               "neighbours":{},
+              // "countGreen": 0,
             });
             flag=1;
           }else{
@@ -15,15 +16,17 @@ function loadInitialArray(initialArr, noRows, noCols){
               "value": flag,
               "position": 'middle',
               "neighbours":{},
+              // "countGreen": 0,
             });
             flag=0;
           }
         }
         
         definePositions(initialArr, noRows, noCols);
+        // countGreen(initialArr);
       }
       
-      function reloadArray(arr, noRows, noCols){
+function reloadArray(arr, noRows, noCols){
         
         let flag = 0;
         
@@ -33,6 +36,7 @@ function loadInitialArray(initialArr, noRows, noCols){
               "value": flag,
               "position": 'middle',
               "neighbours":{},
+              // "countGreen": 0,
             });
             flag=1;
           }else{
@@ -40,6 +44,7 @@ function loadInitialArray(initialArr, noRows, noCols){
               "value": flag,
               "position": 'middle',
               "neighbours":{},
+              // "countGreen": 0,
         });
         flag=0;
       }
@@ -47,6 +52,7 @@ function loadInitialArray(initialArr, noRows, noCols){
 
 
     definePositions(arr, noRows, noCols);
+    // countGreen(arr);
 }
 
 function defineMiddle(arr, noCols) {
@@ -64,28 +70,24 @@ function applyRules(arr) {
     let nextArr = [];
     let countGreen = 0;
 
-
-
     for (let i=0; i<arr.length; i++){
 
-      console.log(`e${i}`);
       arr[i].neighbours.forEach((index) =>{
-        if (arr[index].value==1){
+        if (arr[index].value===1){
           countGreen++;
-          console.log(`${index}`);
         }
           
       });
   
       
-      if(arr[i].value==1){
-        if(countGreen==2 || countGreen==3 || countGreen==6){
+      if(arr[i].value===1){
+        if(countGreen===2 || countGreen===3 || countGreen===6){
           auxArr[i].value=1;
         }else{
           auxArr[i].value=0;
         }
-      }else if(arr[i].value==0){
-          if(countGreen==3 || countGreen==6){
+      }else if(arr[i].value===0){
+          if(countGreen===3 || countGreen===6){
             auxArr[i].value=1;
           }else{
             auxArr[i].value=0;
@@ -97,7 +99,7 @@ function applyRules(arr) {
       nextArr.push(auxArr[i]);
       
     }
-    
+
     return nextArr;
 }
 
@@ -114,6 +116,14 @@ function definePositions(arr, noRows, noCols){
   defineRighttWall(arr, noRows, noCols);
   defineMiddle(arr, noCols);
   
+}
+
+function countGreen(arr){
+  arr.forEach((element) => {
+    if(element.value===1){
+      element.countGreen=1;
+    }
+  })
 }
 
 function defineCorners(arr, noRows, noCols){
@@ -168,7 +178,7 @@ function defineLeftWall(arr, noRows, noCols){
     let pos = (row-1)*noCols;
 
     for(let j=0; j<arr.length; j++){
-      if(j==pos){
+      if(j===pos){
         arr[j].position='left-wall';
         arr[j].neighbours=[j-noCols, j-noCols+1, j+1, j+noCols, j+noCols+1];
       }
@@ -184,7 +194,7 @@ function defineRighttWall(arr, noRows, noCols){
     let pos = row*noCols -1;
 
     for(let j=0; j<arr.length; j++){
-      if(j==pos){
+      if(j===pos){
         arr[j].position='right-wall';
         arr[j].neighbours=[j-noCols-1, j-noCols, j-1, j+noCols-1, j+noCols];
       }
@@ -192,4 +202,4 @@ function defineRighttWall(arr, noRows, noCols){
   }
 }
 
-export { loadInitialArray, reloadArray, chooseCell, applyRules }
+export { loadInitialArray, reloadArray, chooseCell, applyRules, countGreen }

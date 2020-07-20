@@ -1,6 +1,27 @@
 import React from 'react'
 
-export default function Cell( { position, color, borderColor } ) {
+export default function Cell( { generationNo, cellValue, initialCountGreen, cellNo, recordArr, color, chosen } ) {
+    
+    let borderColor = color;
+
+    let count = 0;
+    if (cellValue==1){
+        count = 1;
+    }
+
+    
+    if(chosen){
+         borderColor = 'orange';
+        
+        if(recordArr.length>0){
+            recordArr.forEach((array) => {
+                if(array[cellNo-1].value===1){
+                    count++;
+                }
+            });
+        }
+    }
+
     const styles = {
         cell: {
             width: '50px',
@@ -10,15 +31,27 @@ export default function Cell( { position, color, borderColor } ) {
             marginBottom: "10px",
             marginLeft: "10px",
             marginRight: "10px",
-            borderRadius: "25%"
+            borderRadius: "25%",
+            border: `5px solid ${borderColor}`,
         },
 
-        choosen: {
-            border: `5px solid ${borderColor}`
+        text: {
+            color: 'white',
+            display: 'flex',
+            flexDirection: 'row',
+            justifyContent: 'center',
+            marginTop: '10px',
         }
     }
+
+
+
     return (
-    <div style={{...styles.cell, ...styles.choosen}}>{position}</div>
+        <div style={styles.cell}>
+            <div className='container' style={styles.text}>
+                {chosen ? count : ''}
+            </div>
+        </div>
     );
 }
 

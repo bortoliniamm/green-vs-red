@@ -18,7 +18,7 @@ export default function Xposition( {handleChange, xMax} ) {
                         autoFocus
                         onChange={handleXChange}
                     />
-                    <label  className='active' htmlFor='inputSalary'>
+                    <label  className='active' htmlFor='col'>
                         Cell column number
                     </label>
                 </div>

@@ -18,7 +18,7 @@ export default function Yposition( {handleChange, yMax} ) {
                         autoFocus
                         onChange={handleYChange}
                     />
-                    <label  className='active' htmlFor='inputSalary'>
+                    <label  className='active' htmlFor='row'>
                         Cell row number
                     </label>
                 </div>

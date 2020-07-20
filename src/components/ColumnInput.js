@@ -18,7 +18,7 @@ export default function ColumnInput({ handleChange }) {
                         max={10}
                         onChange={handleInputChange}
                     />
-                    <label  className='active' htmlFor='inputSalary'>
+                    <label  className='active' htmlFor='inputCol'>
                         Columns
                     </label>
                 </div>

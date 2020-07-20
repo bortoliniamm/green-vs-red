@@ -18,7 +18,7 @@ export default function RowInput({ handleChange}) {
                         max={10}
                         onChange={handleInputChange}
                     />
-                    <label  className='active' htmlFor='inputSalary'>
+                    <label  className='active' htmlFor='inputRow'>
                         Rows
                     </label>
                 </div>

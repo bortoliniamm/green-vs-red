@@ -1,7 +1,7 @@
 import React from 'react'
 import Cell from './Cell.js'
 
-export default function Grid( { gridArr, columns, myCell } ) {
+export default function Grid( { recordArr, gridArr, columns, myCell } ) {
     let color='green';
     let borderColor=color;
 
@@ -20,15 +20,28 @@ export default function Grid( { gridArr, columns, myCell } ) {
       };
 
     let j=0;
+    let chosen=false;
 
     return (
         <div>
             <div className='container' style={styles.grid}>
                 {gridArr.map(element => {
-                    if(element.value===0){color='red'}else{color='green'};
-                    if(myCell===j){borderColor='orange'}else{borderColor=color};
+
+                    if(element.value===0){
+                        color='red'
+                    }else{
+                        color='green'
+                    };
+
+                    if(myCell===j){
+                        chosen=true;
+                    }else{
+                        chosen=false;
+                    };
+
                     j++;
-                    return <Cell key={j} position={element.position} color={color} borderColor={borderColor}/>;
+                    
+                    return <Cell cellValue={element.value} recordArr={recordArr} key={j} cellNo={j} color={color} chosen={chosen}/>;
                 })}
             </div>
         </div>
