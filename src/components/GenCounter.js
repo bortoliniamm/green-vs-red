@@ -2,9 +2,14 @@ import React from 'react'
 
 export default function GenCounter({ genCount }) {
     return (
-        <div className='container' style={styles.cell}>
-            <div style={styles.text}>
-                {genCount}
+        <div style={styles.flexBox}>    
+            <div>
+                <strong>Generation Count: </strong> 
+            </div>
+            <div className='container' style={styles.cell}>
+                <div style={styles.text}>
+                    {genCount}
+                </div>
             </div>
         </div>
     )
@@ -27,5 +32,11 @@ const styles = {
         display: 'flex',
         justifyContent: 'center',
         height: '7.5vh',
+    },
+    flexBox: {
+        display: 'flex',
+        flexDirection: 'row',
+        alignItems: 'center',
+        marginLeft: '530px',
     }
 };

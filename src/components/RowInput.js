@@ -2,7 +2,10 @@ import React from 'react'
 
 export default function RowInput({ handleChange}) {
     const handleInputChange = (event) => {
-        handleChange(Number(event.target.value));
+        if(event.target.value != '' && event.target.value != '0' && event.target.value.indexOf('-')===-1){
+
+            handleChange(Number(event.target.value));
+        }
     }
     
     return (

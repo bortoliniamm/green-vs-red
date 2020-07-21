@@ -1,45 +1,56 @@
 import React from 'react'
+import ArrayStringDisplay from './ArrayStringDisplay.js'
 
-export default function ArrayInput({ gridSize, myArr }) {
+export default function ArrayInput({ strGridArray, gridSize, myArr, strGrid }) {
 
     let str='';
     let arr=[];
-    let auxArr=[]
+    let auxArr=[];
+    let strArr=[];
 
     const handleClick = () => {
+
         if(arr.length===gridSize){
             myArr(arr);
+            strGrid(strArr);
+        }else{
+            strGrid([]);
         }
     }
 
     const handleChange = (event) => {
 
-        let value=0;
         arr=[];
         auxArr=[];
+        strArr=[];
 
         str=event.target.value;
         auxArr=str.split(',');
 
+
         auxArr.forEach((string)=>{
             if(parseInt(string)===1 || parseInt(string)===0){
-                value=parseInt(string)
+                let value=parseInt(string);
+                strArr.push(string);
                 arr.push(value);
             }
         });
 
-        if(arr.length===gridSize){
-            myArr(arr);
-        }
-
-        // console.log(arr);
     }
 
     return (
-
         <div>
-            <div style={styles.center} className='container'>
+              <div style={styles.center} className='container'>
+                
                 <div>
+                    <div style={styles.tipCell}>
+                        <p style={{color: 'white'}}>
+                            Use simple commas to separate the entries (",").
+                        </p>
+                    </div>
+                </div>
+
+                <div style={styles.controllers}>
                     <div className='input-field'>
                         <input style={styles.inputStyle}
                             id='input'
@@ -52,13 +63,15 @@ export default function ArrayInput({ gridSize, myArr }) {
                             Set your array
                         </label>
                     </div>
-                </div>
-                <div style={styles.btn}>
-                    <a className="waves-effect waves-light btn-small" onClick={handleClick}>Set</a>
+                    
+                    <div style={styles.btn}>
+                        <a className="waves-effect waves-light btn-small" onClick={handleClick}>Set</a>
+                    </div>
+                    
                 </div>
             </div>
             <div>
-                <p>Use simple commas (',') to separate the entries</p>
+                <ArrayStringDisplay strGridArray={strGridArray}/>
             </div>
         </div>
     )
@@ -66,19 +79,33 @@ export default function ArrayInput({ gridSize, myArr }) {
 
 const styles = {
     inputStyle: {
+        width: '160px',
+    },
+    controllers: {
+        marginLeft: '50px',
+    },
+    tipCell: {
+        width: '125px',
+        height: '125px',
+        marginTop: "10px",
+        marginBottom: "10px",
+        marginLeft: "50px",
+        padding: '15px',
+        backgroundColor: 'darkgreen',
+        borderRadius: "25%",
         display: 'flex',
         flexDirection: 'row',
-        width: '150px',
         alignItems: 'center',
-        marginLeft: '10px',
+        fontColor: 'white'
     },
     center: {
+        width: '500px',
         display: 'flex',
         flexDirection: 'row',
-        alignItems: 'center',
-        justifyContent: 'center',
+        justifyContent: 'flex-start',
+        paddingLeft: '35px'
     },
     btn: {
-        marginLeft: '30px',
+        marginLeft: '110px',
     }
-};
+}
