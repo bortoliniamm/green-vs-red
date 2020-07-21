@@ -50,12 +50,14 @@ function App() {
     
   const handleRowChange = (value) => {
     setStrGridArr('');
+    setCountGen(0):
     setRecordArr(emptyRecordArray);
     setNoRows(value);
   }; 
   
   const handleColumnChange = (value) => {
     setStrGridArr('');
+    setCountGen(0):
     setRecordArr(emptyRecordArray);
     setNoColumns(value);
   }; 
