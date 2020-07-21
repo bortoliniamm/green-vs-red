@@ -4,9 +4,11 @@ import Grid from './components/Grid.js';
 import ChooseCell from './components/ChooseCell.js';
 import SetGrid from './components/SetGrid.js';
 import ArrayInput from './components/ArrayInput.js';
+import SetLoops from './components/SetLoops.js';
+import GenCounter from './components/GenCounter.js';
 
 import { loadInitialArray, reloadArray, chooseCell, applyRules, countGreen } from './GameRules.js'
-import SetLoops from './components/SetLoops.js';
+
 
 function App() {
 
@@ -23,6 +25,7 @@ function App() {
   const [yPosition, setYPosition] = useState(1);
   const [position, setPosition] = useState(0);
   const [generations, setGenerations] = useState(1);
+  const [countGen, setCountGen] = useState(0);
   
   let recAux=[]
   const [recordArr, setRecordArr] = useState(recAux);
@@ -35,7 +38,6 @@ function App() {
     let auxArr = gridArr.map(u => Object.assign({}, u, { approved: true }));
     
     auxArr.forEach((cell) => {
-      cell.countGreen=0;
       cell.value=arr[i];
       i++;
     });
@@ -68,6 +70,11 @@ function App() {
   }; 
 
   function loadNextGeneration() {
+    
+    let contAux=countGen;
+    contAux++;
+    setCountGen(contAux);
+
     let aux=recordArr.map(u => Object.assign({}, u, { approved: true }));
     aux.push(auxArr2);
     setRecordArr(aux);
@@ -75,7 +82,6 @@ function App() {
     newArr=applyRules(auxArr2);
     setGridArr(newArr);
   }
-
 
   const handleButtonClick = () => { 
     
@@ -89,10 +95,10 @@ function App() {
       // }
 
     }else{
+
       loadNextGeneration();
     }
   }
-
 
   useEffect(() => {
     
@@ -133,6 +139,7 @@ function App() {
               <div>
                   <SetLoops getClick={handleButtonClick} noGenerations={handleGenerationsChange}/>
               </div>
+              <GenCounter genCount={countGen}/>
             </div>
             <Grid recordArr={recordArr} gridArr={gridArr} columns={noColumns} myCell={position}/>
         </div>
