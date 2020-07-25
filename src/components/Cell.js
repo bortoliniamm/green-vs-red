@@ -5,7 +5,7 @@ export default function Cell( { cellValue, cellNo, recordArr, color, chosen } ) 
     let borderColor = color;
     let count = 0;
 
-    if (cellValue==1){
+    if (cellValue===1){
         count = 1;
     }
 

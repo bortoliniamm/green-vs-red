@@ -1,9 +1,8 @@
 import React from 'react'
 
-export default function RowInput({ handleChange}) {
+export default function LoopsInput({ handleChange }) {
     const handleInputChange = (event) => {
         if(event.target.value !== '' && event.target.value !== '0' && event.target.value.indexOf('-')===-1){
-
             handleChange(Number(event.target.value));
         }
     }
@@ -17,12 +16,10 @@ export default function RowInput({ handleChange}) {
                         type='number'
                         placeholder='Set a value'
                         autoFocus
-                        min={3}
-                        max={10}
                         onChange={handleInputChange}
                     />
-                    <label  className='active' htmlFor='inputRow'>
-                        Rows
+                    <label  className='active' htmlFor='inputLoops'>
+                        Loops
                     </label>
                 </div>
             </div>

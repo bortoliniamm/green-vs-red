@@ -6,6 +6,7 @@ import SetGrid from './components/SetGrid.js';
 import ArrayInput from './components/ArrayInput.js';
 import RunButton from './components/RunButton.js';
 import GenCounter from './components/GenCounter.js';
+import LoopsInput from './components/LoopsInput.js';
 
 import { chooseCell, applyRules } from './helpers/GameRules.js';
 import { initializeEmptyArray} from './helpers/initializer.js'
@@ -25,11 +26,19 @@ function App() {
   const [yPosition, setYPosition] = useState(1);
   const [position, setPosition] = useState(0);
   const [countGen, setCountGen] = useState(0);
+  const [numLoops, setNumLoops] = useState(10);
+
+  const [futureGrids, setFutureGrids] = useState([]);
   
   let emptyRecordArray=[];
   const [recordArr, setRecordArr] = useState(emptyRecordArray);
 
   const handleArrayInput = (arr) => {
+
+    setCountGen(0);
+    setNumLoops(0);
+    setRecordArr(emptyRecordArray);
+    setFutureGrids([]);
 
     let gridArrCopy = gridArr.map(u => Object.assign({}, u, { approved: true }));
     
@@ -52,6 +61,7 @@ function App() {
     setStrGridArr('');
     setCountGen(0);
     setRecordArr(emptyRecordArray);
+    setFutureGrids([]);
     setNoRows(value);
   }; 
   
@@ -59,33 +69,72 @@ function App() {
     setStrGridArr('');
     setCountGen(0);
     setRecordArr(emptyRecordArray);
+    setFutureGrids([]);
     setNoColumns(value);
   }; 
   
   const changeX = (value) => {
     setXPosition(value);
+    setCountGen(0);
+    setRecordArr(emptyRecordArray);
+    setFutureGrids([]);
   }; 
   
   const changeY = (value) => {
     setYPosition(value);
+    setCountGen(0);
+    setRecordArr(emptyRecordArray);
+    setFutureGrids([]);
+  }; 
+  const handleLoopsChange = (value) => {
+    setStrGridArr('');
+    setCountGen(0);
+    setRecordArr(emptyRecordArray);
+    setNumLoops(value);
   }; 
   
-  const handleButtonClick = () => { 
-  
-    let contAux=countGen;
-    contAux++;
-    setCountGen(contAux);
+  const handleButtonClick = () => {
 
     let oldGridArr = gridArr.map(u => Object.assign({}, u, { approved: true }));
-    let newRecordArr=recordArr.map(u => Object.assign({}, u, { approved: true }));
+    let newRecordArr = recordArr.map(u => Object.assign({}, u, { approved: true }));
     
-    newRecordArr.push(oldGridArr);
+    let auxFutureGrids=[];
+    let currArr = oldGridArr;
+    let nextArr=[];
+
+    newRecordArr.push(currArr);
     setRecordArr(newRecordArr);
+    
+    for(let i=0; i<numLoops; i++){
+      nextArr=applyRules(currArr);
+      auxFutureGrids.push(nextArr);
+      currArr=nextArr;
+    }
+
+    setFutureGrids(auxFutureGrids);
 
     let newGridArr=applyRules(oldGridArr);
     setGridArr(newGridArr);
 
   }
+
+  useEffect(() => {
+  
+    let auxCont=Object.assign([], countGen);
+    let auxRec=Object.assign([], recordArr);
+
+    for(let i=0; i<futureGrids.length; i++){
+      setTimeout(function(){
+        if(i>0){
+          auxRec.push(futureGrids[i-1]);
+          setRecordArr(auxRec);
+        }
+        auxCont++;
+        setCountGen(auxCont);
+        setGridArr(futureGrids[i]);
+       }, i*1000);
+    }
+  }, [futureGrids, recordArr])
 
   useEffect(() => {
     
@@ -120,6 +169,7 @@ function App() {
                   <ChooseCell  Xpos={changeX} Ypos={changeY} noRows={noRows} noColumns={noColumns}/>
                   <ArrayInput strGridArray={strGridArr} gridSize={noRows*noColumns} myArr={handleArrayInput} strGrid={handleDisplayChange}/>
                   <div style={styles.btn}>
+                    <LoopsInput handleChange={handleLoopsChange}/>
                     <RunButton getClick={handleButtonClick} />
                   </div>
                 </div>
@@ -158,16 +208,17 @@ const styles = {
     padding: '0',
     margin: '0',
     listStyle: 'none',
-    display: 'flex',
-    justifyContent: 'flex-start', 
   },
   outputs: {
     height: '500px',
     width: '750px',
   },
   btn: {
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
     marginTop: '30px',
-    marginLeft: '350px',
+    // marginLeft: '350px',
   }
 };
 

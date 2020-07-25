@@ -65,7 +65,7 @@ export default function ArrayInput({ strGridArray, gridSize, myArr, strGrid }) {
                     </div>
                     
                     <div style={styles.btn}>
-                        <a className="waves-effect waves-light btn-small" onClick={handleClick}>Set</a>
+                        <a className="waves-effect waves-light btn-small" href='set-btn' onClick={handleClick}>Set</a>
                     </div>
                     
                 </div>

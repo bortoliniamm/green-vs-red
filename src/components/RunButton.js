@@ -8,7 +8,7 @@ export default function RunButton({ getClick }) {
 
     return (
         <div>
-            <a className="waves-effect waves-light btn-large" onClick={handleButtonClick}>RUN</a>
+            <a href='run-btn' className="waves-effect waves-light btn-large" onClick={handleButtonClick}>RUN</a>
         </div>
     )
 }

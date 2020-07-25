@@ -3,7 +3,6 @@ import Cell from './Cell.js'
 
 export default function Grid( { recordArr, gridArr, columns, myCell } ) {
     let color='green';
-    let borderColor=color;
 
     let gridWidth = 70*columns;
 
