@@ -36,7 +36,6 @@ function App() {
   const handleArrayInput = (arr) => {
 
     setCountGen(0);
-    setNumLoops(0);
     setFutureGrids([]);
 
     let gridArrCopy = gridArr.map(u => Object.assign({}, u, { approved: true }));
@@ -95,7 +94,7 @@ function App() {
   const handleButtonClick = () => {
 
     let oldGridArr = gridArr.map(u => Object.assign({}, u, { approved: true }));
-    let newRecordArr = recordArr.map(u => Object.assign({}, u, { approved: true }));
+    let newRecordArr = [];
     
     let auxFutureGrids=[];
     let currArr = oldGridArr;
