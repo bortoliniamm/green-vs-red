@@ -37,7 +37,6 @@ function App() {
 
     setCountGen(0);
     setNumLoops(0);
-    setRecordArr(emptyRecordArray);
     setFutureGrids([]);
 
     let gridArrCopy = gridArr.map(u => Object.assign({}, u, { approved: true }));
@@ -87,9 +86,9 @@ function App() {
     setFutureGrids([]);
   }; 
   const handleLoopsChange = (value) => {
-    setStrGridArr('');
     setCountGen(0);
     setRecordArr(emptyRecordArray);
+    setFutureGrids([]);
     setNumLoops(value);
   }; 
   
@@ -134,7 +133,7 @@ function App() {
         setGridArr(futureGrids[i]);
        }, i*1000);
     }
-  }, [futureGrids, recordArr])
+  }, [futureGrids])
 
   useEffect(() => {
     
