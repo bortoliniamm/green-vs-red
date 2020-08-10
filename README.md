@@ -1,3 +1,5 @@
+![alt text](https://raw.githubusercontent.com/bortoliniamm/green-vs-red/master/1.jpg?raw=true)
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 ## Heroku app link
 https://greenvsred.herokuapp.com/
